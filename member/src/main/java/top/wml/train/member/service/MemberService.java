@@ -5,6 +5,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import top.wml.train.common.exception.BusinessException;
 import top.wml.train.common.exception.BusinessExceptionEnum;
+import top.wml.train.common.util.SnowUtil;
 import top.wml.train.member.domain.Member;
 import top.wml.train.member.domain.MemberExample;
 import top.wml.train.member.mapper.MemberMapper;
@@ -30,7 +31,7 @@ public class MemberService {
             throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         Member member = new Member();
-        member.setId(System.currentTimeMillis());
+        member.setId(SnowUtil.getSnowflakeNextId());
         member.setMobile(mobile);
         memberMapper.insert(member);
         return member.getId();
