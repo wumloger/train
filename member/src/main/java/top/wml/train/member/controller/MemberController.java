@@ -1,6 +1,7 @@
 package top.wml.train.member.controller;
 
 import jakarta.annotation.Resource;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import top.wml.train.common.resp.CommonResp;
 import top.wml.train.member.req.MemberRegisterReq;
@@ -19,7 +20,7 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public CommonResp<Long> register( MemberRegisterReq req){
+    public CommonResp<Long> register(@Valid MemberRegisterReq req){
         Long register = memberService.register(req);
         return new CommonResp<Long>(register);
     }
