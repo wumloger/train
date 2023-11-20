@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import top.wml.train.member.domain.Member;
 import top.wml.train.member.domain.MemberExample;
 import top.wml.train.member.mapper.MemberMapper;
+import top.wml.train.member.req.MemberRegisterReq;
 
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class MemberService {
         return Math.toIntExact(memberMapper.countByExample(null));
     }
 
-    public Long register(String mobile){
+    public Long register(MemberRegisterReq req){
+        String mobile = req.getMobile();
         MemberExample memberExample = new MemberExample();
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> list = memberMapper.selectByExample(memberExample);

@@ -1,10 +1,9 @@
 package top.wml.train.member.controller;
 
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import top.wml.train.common.resp.CommonResp;
+import top.wml.train.member.req.MemberRegisterReq;
 import top.wml.train.member.service.MemberService;
 
 @RestController
@@ -20,7 +19,8 @@ public class MemberController {
     }
 
     @PostMapping("/register")
-    public Long register(String mobile){
-        return memberService.register(mobile);
+    public CommonResp<Long> register( MemberRegisterReq req){
+        Long register = memberService.register(req);
+        return new CommonResp<Long>(register);
     }
 }
