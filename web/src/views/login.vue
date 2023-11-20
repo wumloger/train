@@ -39,6 +39,7 @@ import axios from 'axios'
 import { reactive } from "vue";
 import { notification } from 'ant-design-vue';
 import { useRouter } from 'vue-router';
+import store from '@/store';
 const router = useRouter();
 const loginForm = reactive({
     mobile: "13000000000",
@@ -74,6 +75,7 @@ const login = () => {
             notification.success({ description: '登录成功!' });
             console.log('登录成功', data.content);
             router.push({ path: '/' });
+            store.commit('setMember', data.content);
         } else {
             notification.error({ description: data.message });
         }
