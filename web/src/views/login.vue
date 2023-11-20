@@ -27,7 +27,7 @@
                 </a-input>
             </a-form-item>
             <a-form-item>
-                <a-button type="primart" block html-type="submit">登录</a-button>
+                <a-button type="primart" block html-type="submit" @click="login">登录</a-button>
             </a-form-item>
             </a-form>
         </a-col>
@@ -37,6 +37,7 @@
 <script setup>
 import axios from 'axios'
 import { reactive } from "vue";
+import { notification } from 'ant-design-vue';
 const loginForm = reactive({
     mobile: "13000000000",
     code: ""
@@ -53,7 +54,26 @@ const sendCode = () => {
     axios.post('http://localhost:8000/member/member/send-code', {
         mobile: loginForm.mobile
     }).then(res => {
-        console.log(res)
+        console.log(res);
+        let data = res.data;
+        if (data.success) {
+            notification.success({ description: '发送验证码成功!' });
+            loginForm.code = '8888';
+        } else {
+            notification.error({ description: data.message });
+        }
+    })
+}
+
+const login = () => {
+    axios.post('http://localhost:8000/member/member/login', loginForm).then((res) => {
+        let data = res.data;
+        if (data.success) {
+            notification.success({ description: '登录成功!' });
+            console.log('登录成功', data.content);
+        } else {
+            notification.error({ description: data.message });
+        }
     })
 }
 
