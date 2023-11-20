@@ -3,6 +3,8 @@ package top.wml.train.member.service;
 import cn.hutool.core.collection.CollUtil;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import top.wml.train.common.exception.BusinessException;
+import top.wml.train.common.exception.BusinessExceptionEnum;
 import top.wml.train.member.domain.Member;
 import top.wml.train.member.domain.MemberExample;
 import top.wml.train.member.mapper.MemberMapper;
@@ -25,7 +27,7 @@ public class MemberService {
         memberExample.createCriteria().andMobileEqualTo(mobile);
         List<Member> list = memberMapper.selectByExample(memberExample);
         if(CollUtil.isNotEmpty(list)){
-            throw new RuntimeException("手机号已注册");
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_EXIST);
         }
         Member member = new Member();
         member.setId(System.currentTimeMillis());
