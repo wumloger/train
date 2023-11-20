@@ -1,6 +1,8 @@
 package top.wml.train.member.service;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ObjectUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,8 +12,10 @@ import top.wml.train.common.util.SnowUtil;
 import top.wml.train.member.domain.Member;
 import top.wml.train.member.domain.MemberExample;
 import top.wml.train.member.mapper.MemberMapper;
+import top.wml.train.member.req.MemberLoginReq;
 import top.wml.train.member.req.MemberRegisterReq;
 import top.wml.train.member.req.MemberSendCodeReq;
+import top.wml.train.member.resp.MemberLoginResp;
 
 import java.util.List;
 
@@ -62,4 +66,31 @@ public class MemberService {
         log.info("保存短信记录表");
         log.info("对接短信通道");
     }
+
+    public MemberLoginResp login(MemberLoginReq req){
+        String mobile = req.getMobile();
+        String code = req.getCode();
+        Member memberDB = selectByMobile(mobile);
+        if(ObjectUtil.isNull(memberDB)){
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_NOT_EXIST);
+        }
+        if(!"8888".equals(code)){
+            throw new BusinessException(BusinessExceptionEnum.MEMBER_MOBILE_CODE_ERROR);
+        }
+        return BeanUtil.copyProperties(memberDB,MemberLoginResp.class);
+    }
+
+    private Member selectByMobile(String mobile) {
+        MemberExample memberExample = new MemberExample();
+
+        memberExample.createCriteria().andMobileEqualTo(mobile);
+        List<Member> list = memberMapper.selectByExample(memberExample);
+        if(CollUtil.isEmpty(list)){
+            return null;
+        }else{
+            return list.get(0);
+        }
+    }
+
+
 }
