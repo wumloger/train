@@ -1,8 +1,9 @@
 <template>
     <a-layout-header class="header">
-        <div class="logo" >
+        <div class="logo" />
+        <div style="float: right; color: white;">
             您好： {{ member.mobile }}
-            <router-link to="/login">退出登录</router-link>
+            <router-link to="/login" style="color: white;">退出登录</router-link>
         </div>
         <a-menu
             v-model:selectedKeys="selectedKeys1"
@@ -28,6 +29,5 @@ let member = store.state.member;
 <style scoped>
     .logo{
         color:#fff;
-        text-align: left;
     }
 </style>
