@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import top.wml.train.common.context.LoginMemberContext;
 import top.wml.train.common.resp.CommonResp;
+import top.wml.train.common.resp.PageResp;
 import top.wml.train.member.req.PassengerQueryReq;
 import top.wml.train.member.req.PassengerSaveReq;
 import top.wml.train.member.resp.PassengerQueryResp;
@@ -26,9 +27,9 @@ public class PassengerController {
     }
 
     @GetMapping("/query-list")
-    public CommonResp<List<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req){
+    public CommonResp<PageResp<PassengerQueryResp>> queryList(@Valid PassengerQueryReq req){
         req.setMemberId(LoginMemberContext.getId());
-        List<PassengerQueryResp> list = passengerService.queryList(req);
+        PageResp<PassengerQueryResp> list = passengerService.queryList(req);
         return new CommonResp<>(list);
     }
 }
