@@ -16,7 +16,7 @@
                     margin:0,
                     minHeight:'280px'
                 }">
-                所有的会员总数：{{ count }}    
+                <router-view></router-view>   
             </a-layout-content>
         </a-layout>
       </a-layout>
@@ -24,12 +24,12 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
+// import {ref} from 'vue';
 import TheHeaderView from '@/components/the-header.vue';
 import TheSiderView from '@/components/the-sider.vue';
 // import axios from 'axios';
 
-const count = ref(0);
+// const count = ref(0);
 // axios.get('/member/member/count').then(res => {
 //     count.value = res.data;
 // });
