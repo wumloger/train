@@ -71,7 +71,7 @@ const onAdd = () => {
 };
 
 const onEdit = (record) => {
-    passenger.value = record;
+    passenger.value = window.Tool.copy(record);
     visible.value = true;
 };
 
