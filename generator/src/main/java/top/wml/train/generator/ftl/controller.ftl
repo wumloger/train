@@ -1,12 +1,12 @@
-package top.wml.train.member.controller;
+package top.wml.train.${module}.controller;
 
 import top.wml.train.common.context.LoginMemberContext;
 import top.wml.train.common.resp.CommonResp;
 import top.wml.train.common.resp.PageResp;
-import top.wml.train.member.req.${Domain}QueryReq;
-import top.wml.train.member.req.${Domain}SaveReq;
-import top.wml.train.member.resp.${Domain}QueryResp;
-import top.wml.train.member.service.${Domain}Service;
+import top.wml.train.${module}.req.${Domain}QueryReq;
+import top.wml.train.${module}.req.${Domain}SaveReq;
+import top.wml.train.${module}.resp.${Domain}QueryResp;
+import top.wml.train.${module}.service.${Domain}Service;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

@@ -15,7 +15,6 @@ import top.wml.train.member.domain.Passenger;
 import top.wml.train.member.domain.PassengerExample;
 import top.wml.train.member.mapper.PassengerMapper;
 import top.wml.train.member.req.PassengerQueryReq;
-import top.wml.train.member.req.PassengerSaveReq;
 import top.wml.train.member.resp.PassengerQueryResp;
 
 import java.util.List;

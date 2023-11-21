@@ -1,4 +1,4 @@
-package top.wml.train.member.req;
+package top.wml.train.${module}.req;
 
 <#list typeSet as type>
     <#if type=='Date'>

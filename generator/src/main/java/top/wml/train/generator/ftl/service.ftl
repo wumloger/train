@@ -1,4 +1,4 @@
-package top.wml.train.member.service;
+package top.wml.train.${module}.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
@@ -8,12 +8,12 @@ import com.github.pagehelper.PageInfo;
 import top.wml.train.common.context.LoginMemberContext;
 import top.wml.train.common.resp.PageResp;
 import top.wml.train.common.util.SnowUtil;
-import top.wml.train.member.domain.${Domain};
-import top.wml.train.member.domain.${Domain}Example;
-import top.wml.train.member.mapper.${Domain}Mapper;
-import top.wml.train.member.req.${Domain}QueryReq;
-import top.wml.train.member.req.${Domain}SaveReq;
-import top.wml.train.member.resp.${Domain}QueryResp;
+import top.wml.train.${module}.domain.${Domain};
+import top.wml.train.${module}.domain.${Domain}Example;
+import top.wml.train.${module}.mapper.${Domain}Mapper;
+import top.wml.train.${module}.req.${Domain}QueryReq;
+import top.wml.train.${module}.req.${Domain}SaveReq;
+import top.wml.train.${module}.resp.${Domain}QueryResp;
 import jakarta.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

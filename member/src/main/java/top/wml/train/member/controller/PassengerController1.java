@@ -7,9 +7,7 @@ import top.wml.train.common.context.LoginMemberContext;
 import top.wml.train.common.resp.CommonResp;
 import top.wml.train.common.resp.PageResp;
 import top.wml.train.member.req.PassengerQueryReq;
-import top.wml.train.member.req.PassengerSaveReq;
 import top.wml.train.member.resp.PassengerQueryResp;
-import top.wml.train.member.service.PassengerService;
 
 @RestController
 @RequestMapping("/passenger")
