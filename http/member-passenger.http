@@ -7,6 +7,18 @@ token:{{token}}
   "idCard": "330101199001011111",
   "type": "1"
 }
+###
+POST http://localhost:8001/member/passenger/save
+Content-Type: application/json
+token:{{token}}
+
+{
+  "id": 1726867803677528064,
+  "memberId": 1,
+  "name": "李四",
+  "idCard": "330101199001011111",
+  "type": "1"
+}
 
 ###
 
