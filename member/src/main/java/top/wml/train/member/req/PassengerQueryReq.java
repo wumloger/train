@@ -20,4 +20,3 @@ return "PassengerQueryReq{" +
 "} " + super.toString();
 }
 }
-}
