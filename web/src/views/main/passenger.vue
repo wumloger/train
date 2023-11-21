@@ -14,6 +14,13 @@
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
         <a-space>
+          <a-popconfirm 
+            title="删除后不可恢复，确认删除"
+            @confirm="onDelete(record)"
+            ok-text="确认"
+            cancel-text="取消">
+        <a style="color:red;">删除</a>
+        </a-popconfirm>  
           <a @click="onEdit(record)">编辑</a>
         </a-space>
       </template>
@@ -90,6 +97,21 @@ const handleOk = () => {
         }
     });
 };
+
+const onDelete = (record) => {
+    axios.delete('/member/passenger/delete/' + record.id).then((res) => {
+        const data = res.data;
+        if (data.success) {
+            notification.success({ description: '删除成功！' });
+            handleQuery({
+                page: pagination.value.current,
+                size: pagination.value.pageSize
+            })
+        } else {
+            notification.error({ description: data.message });
+        }
+    })
+}
 
 const passengers = ref([]);
 
