@@ -41,6 +41,6 @@
                              targetPackage="top.wml.train.member.mapper"
                              type="XMLMAPPER"/>
 
-        <table tableName="passenger" domainObjectName="passenger"/>
+        <table tableName="passenger" domainObjectName="Passenger"/>
     </context>
 </generatorConfiguration>
