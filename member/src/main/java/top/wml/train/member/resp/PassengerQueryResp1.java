@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class PassengerQueryResp {
+public class PassengerQueryResp1 {
     private Long id;
 
     private Long memberId;
