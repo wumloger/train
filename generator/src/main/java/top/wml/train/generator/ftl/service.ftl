@@ -67,10 +67,10 @@ public PageResp<${Domain}QueryResp> queryList(${Domain}QueryReq req) {
             pageResp.setTotal(pageInfo.getTotal());
             pageResp.setList(list);
             return pageResp;
-            }
+    }
 
-            public void delete(Long id) {
+    public void delete(Long id) {
             ${domain}Mapper.deleteByPrimaryKey(id);
             }
 
-            }
+ }
