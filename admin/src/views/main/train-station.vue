@@ -1,8 +1,9 @@
 <template>
     <p>
         <a-space>
-            <a-button type="primary" @click="handleQuery()">刷新</a-button>
-                            <a-button type="primary" @click="onAdd">新增</a-button>
+            <TrainSelectView v-model="params.trainCode" width="200px"></TrainSelectView>
+            <a-button type="primary" @click="handleQuery()">查找</a-button>
+            <a-button type="primary" @click="onAdd">新增</a-button>
         </a-space>
     </p>
     <a-table :dataSource="trainStations"
@@ -191,6 +192,9 @@ watch(() => trainStation.value.name,
         });
     };
 
+    let params = ref({
+        trainCode: null
+    })
     const handleQuery = (param) => {
         if (!param) {
             param = {
@@ -202,7 +206,8 @@ watch(() => trainStation.value.name,
         axios.get("/business/admin/train-station/query-list", {
             params: {
                 page: param.page,
-                size: param.size
+                size: param.size,
+                trainCode:params.value.trainCode
             }
         }).then((response) => {
             loading.value = false;
