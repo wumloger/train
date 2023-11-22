@@ -29,10 +29,16 @@
           火车管理
         </router-link>
       </a-menu-item>
-            <a-menu-item key="/train-station">
+      <a-menu-item key="/train-station">
         <router-link to="/train-station">
           <home-outlined/>
           火车车站管理
+        </router-link>
+      </a-menu-item>
+      <a-menu-item key="/train-carriage">
+        <router-link to="/train-carriage">
+          <home-outlined/>
+          火车车厢管理
         </router-link>
       </a-menu-item>
     </a-menu>

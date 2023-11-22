@@ -10,3 +10,11 @@ const TRAIN_TYPE_ARRAY = [
   { code: "K", desc: "快车" },
 ];
 window.TRAIN_TYPE_ARRAY = TRAIN_TYPE_ARRAY;
+
+const SEAT_TYPE_ARRAY = [
+  { code: "1", desc: "一等座" },
+  { code: "2", desc: "二等座" },
+  { code: "3", desc: "软卧" },
+  { code: "4", desc: "硬卧" },
+];
+window.SEAT_TYPE_ARRAY = SEAT_TYPE_ARRAY;
