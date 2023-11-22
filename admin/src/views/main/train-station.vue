@@ -28,7 +28,19 @@
                  ok-text="确认" cancel-text="取消">
             <a-form :model="trainStation" :label-col="{span: 4}" :wrapper-col="{ span: 20 }">
                         <a-form-item label="车次编号">
-                                <a-input v-model:value="trainStation.trainCode"/>
+                                <!-- <a-input v-model:value="trainStation.trainCode"/> -->
+                                <a-select
+                                    v-model:value="trainStation.trainCode"
+                                    show-search
+                                    :filterOption="filterTrainCodeOption">
+                                  <a-select-option 
+                                     v-for="item in trains"
+                                     :key="item.code" 
+                                     :value="item.code"
+                                     :label="item.code + item.start + item.end">
+                                        {{item.code  }} | {{ item.start }} ~ {{ item.end }}
+                                    </a-select-option>
+                                </a-select>
                         </a-form-item>
                         <a-form-item label="站序">
                                 <a-input v-model:value="trainStation.index"/>
@@ -219,10 +231,27 @@ watch(() => trainStation.value.name,
         });
     };
 
+const queryTrainCode = () => {
+    axios.get("/business/admin/train/query-all").then((res) => {
+        let data = res.data;
+        if (data.success) {
+            console.log(data.content);
+            trains.value = data.content;
+        } else {
+            notification.error({description: data.message});
+        }
+        })
+}
+const trains = ref([]);
+const filterTrainCodeOption = (input,option) => {
+    console.log(input, option);
+    return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+}
     onMounted(() => {
         handleQuery({
             page: 1,
             size: pagination.value.pageSize
         });
+        queryTrainCode()
     });
 </script>
