@@ -141,9 +141,15 @@ public class DbUtil {
      * 数据库类型转为Java类型
      */
     public static String sqlTypeToJavaType(String sqlType) {
-        if (sqlType.toUpperCase().contains("varchar".toUpperCase()) || sqlType.toUpperCase().contains("char".toUpperCase()) || sqlType.toUpperCase().contains("text".toUpperCase())) {
+        if (sqlType.toUpperCase().contains("varchar".toUpperCase())
+                || sqlType.toUpperCase().contains("char".toUpperCase())
+                || sqlType.toUpperCase().contains("text".toUpperCase())) {
             return "String";
         } else if (sqlType.toUpperCase().contains("datetime".toUpperCase())) {
+            return "Date";
+        } else if (sqlType.toUpperCase().contains("time".toUpperCase())) {
+            return "Date";
+        } else if (sqlType.toUpperCase().contains("date".toUpperCase())) {
             return "Date";
         } else if (sqlType.toUpperCase().contains("bigint".toUpperCase())) {
             return "Long";
@@ -159,4 +165,6 @@ public class DbUtil {
             return "String";
         }
     }
+
+
 }

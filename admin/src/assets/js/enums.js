@@ -3,3 +3,10 @@ export const PASSENGER_TYPE_ARRAY = [
   { key: "2", value: "儿童" },
   { key: "3", value: "学生" },
 ];
+
+const TRAIN_TYPE_ARRAY = [
+  { code: "G", desc: "高铁" },
+  { code: "D", desc: "动车" },
+  { code: "K", desc: "快车" },
+];
+window.TRAIN_TYPE_ARRAY = TRAIN_TYPE_ARRAY;
