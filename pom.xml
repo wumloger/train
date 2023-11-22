@@ -21,6 +21,7 @@
         <module>common</module>
         <module>gateway</module>
         <module>generator</module>
+        <module>bisiness</module>
     </modules>
 
     <properties>
