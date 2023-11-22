@@ -1,7 +1,7 @@
 package top.wml.train.common.resp;
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/19
  * @description CommonResp
  **/

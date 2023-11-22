@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/19
  * @description JwtUtil
  **/

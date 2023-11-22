@@ -16,12 +16,14 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <!-- 模板引擎 freemarker -->
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
         </dependency>
+
         <!-- 读xml -->
         <dependency>
             <groupId>org.dom4j</groupId>
@@ -35,6 +37,7 @@
             <artifactId>jaxen</artifactId>
             <version>1.2.0</version>
         </dependency>
+
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
@@ -44,13 +47,15 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>top.wml</groupId>
-            <artifactId>member</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
+
+        <!--<dependency>-->
+        <!--    <groupId>top.wml</groupId>-->
+        <!--    <artifactId>member</artifactId>-->
+        <!--    <version>0.0.1-SNAPSHOT</version>-->
+        <!--    <scope>compile</scope>-->
+        <!--</dependency>-->
     </dependencies>
+
 
     <build>
         <plugins>
@@ -60,10 +65,18 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.4.2</version>
                 <configuration>
-                    <configurationFile>src/main/resources/generator-config-member.xml</configurationFile>
+                    <!--<configurationFile>src/main/resources/generator-config-member.xml</configurationFile>-->
+                    <configurationFile>src/main/resources/generator-config-business.xml</configurationFile>
                     <overwrite>true</overwrite>
                     <verbose>true</verbose>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>8.0.33</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

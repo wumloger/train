@@ -3,7 +3,7 @@ package top.wml.train.common.util;
 import cn.hutool.core.util.IdUtil;
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/19
  * @description SnowUtil：封装hutool雪花算法
  **/

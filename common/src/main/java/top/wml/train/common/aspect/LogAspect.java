@@ -21,7 +21,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/19
  * @description LogAspect 日志切面
  **/

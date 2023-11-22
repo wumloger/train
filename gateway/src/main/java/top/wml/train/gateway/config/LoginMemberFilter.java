@@ -14,7 +14,7 @@ import top.wml.train.gateway.util.JwtUtil;
 
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/20
  * @description LoginMemberFilter
  **/

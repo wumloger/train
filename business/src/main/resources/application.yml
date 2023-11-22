@@ -15,4 +15,4 @@ mybatis:
 
 logging:
   level:
-    top.mqxu.train.business.mapper: trace
+    top.wml.train.business.mapper: trace

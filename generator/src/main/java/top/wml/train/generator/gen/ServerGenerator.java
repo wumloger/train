@@ -20,7 +20,7 @@ public class ServerGenerator {
     static String servicePath = "[module]/src/main/java/top/wml/train/[module]/service/";
     static String serverPath = "[module]/src/main/java/top/wml/train/[module]/";
 
-    static String vuePath = "web/src/views/main/";
+    static String vuePath = "admin/src/views/main/";
     static boolean readOnly = false;
     static String pomPath = "generator/pom.xml";
 
@@ -58,12 +58,12 @@ public class ServerGenerator {
         DbUtil.password = password.getText();
 
 
-        // 示例：表名 mqxu_test
-        // Domain = MqxuTest
+        // 示例：表名 wml_test
+        // Domain = wmlTest
         String Domain = domainObjectName.getText();
-        // domain = mqxuTest
+        // domain = wmlTest
         String domain = Domain.substring(0, 1).toLowerCase() + Domain.substring(1);
-        // do_main = mqxu_test
+        // do_main = wml_test
         String do_main = tableName.getText().replaceAll("_", "-");
         // 表中文名
         String tableNameCn = DbUtil.getTableComment(tableName.getText());
@@ -82,12 +82,13 @@ public class ServerGenerator {
         param.put("readOnly",readOnly);
         System.out.println("组装参数：" + param);
 
-//        gen(Domain, param, "service", "service");
+        gen(Domain, param, "service", "service");
 //        gen(Domain, param, "controller", "controller");
-//        gen(Domain, param, "req", "saveReq");
-//        gen(Domain, param, "req", "saveReq");
-//        gen(Domain,param,"req","queryReq");
-//        gen(Domain,param,"resp","queryResp");
+        gen(Domain,param,"controller/admin","adminController");
+        gen(Domain, param, "req", "saveReq");
+        gen(Domain, param, "req", "saveReq");
+        gen(Domain,param,"req","queryReq");
+        gen(Domain,param,"resp","queryResp");
         genVue(do_main,param);
 
     }
