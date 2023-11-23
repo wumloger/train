@@ -8,19 +8,14 @@ import org.quartz.JobExecutionException;
 /**
  * @author mqxu
  * @date 2023/11/22
- * @description TestJob
+ * @description Test3Job
  **/
 @DisallowConcurrentExecution
-public class TestJob implements Job {
+public class Test3Job implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("TestJob TEST 开始");
-        //try {
-        //    Thread.sleep(3000);
-        //} catch (InterruptedException e) {
-        //    e.printStackTrace();
-        //}
-        System.out.println("TestJob TEST 结束");
+        System.out.println("TestJob333333333 TEST开始");
+        System.out.println("TestJob333333333 TEST结束");
     }
 }
