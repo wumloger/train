@@ -92,4 +92,10 @@ public class TrainService {
             return null;
         }
     }
+    public List<Train> selectAll(){
+        TrainExample trainExample = new TrainExample();
+        trainExample.setOrderByClause("code asc");
+        List<Train> trainList = trainMapper.selectByExample(trainExample);
+        return trainList;
+    }
 }
