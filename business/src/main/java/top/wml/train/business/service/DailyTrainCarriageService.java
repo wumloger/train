@@ -1,10 +1,16 @@
 package top.wml.train.business.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import top.wml.train.business.domain.TrainCarriage;
+import top.wml.train.business.domain.TrainCarriageExample;
+import top.wml.train.business.enums.SeatColEnum;
+import top.wml.train.common.exception.BusinessException;
+import top.wml.train.common.exception.BusinessExceptionEnum;
 import top.wml.train.common.resp.PageResp;
 import top.wml.train.common.util.SnowUtil;
 import top.wml.train.business.domain.DailyTrainCarriage;
@@ -30,23 +36,48 @@ public class DailyTrainCarriageService {
 
     public void save(DailyTrainCarriageSaveReq req) {
         DateTime now = DateTime.now();
-    DailyTrainCarriage dailyTrainCarriage = BeanUtil.copyProperties(req, DailyTrainCarriage.class);
+        List<SeatColEnum> seatColEnums = SeatColEnum.getColsByType(req.getSeatType());
+        req.setColCount(seatColEnums.size());
+        req.setSeatCount(req.getColCount() * req.getRowCount());
+        DailyTrainCarriage dailyTrainCarriage = BeanUtil.copyProperties(req, DailyTrainCarriage.class);
         if (ObjectUtil.isNull(dailyTrainCarriage.getId())) {
-        dailyTrainCarriage.setId(SnowUtil.getSnowflakeNextId());
-        dailyTrainCarriage.setCreateTime(now);
-        dailyTrainCarriage.setUpdateTime(now);
+            DailyTrainCarriage dailyTrainCarriageDB = selectByUnique(req.getTrainCode(), req.getIndex());
+            if(ObjectUtil.isNotEmpty(dailyTrainCarriageDB)){
+                throw new BusinessException(BusinessExceptionEnum.BUSINESS_TRAIN_CARRIAGE_INDEX_UNIQUE_ERROR);
+            }
+            dailyTrainCarriage.setId(SnowUtil.getSnowflakeNextId());
+            dailyTrainCarriage.setCreateTime(now);
+            dailyTrainCarriage.setUpdateTime(now);
             dailyTrainCarriageMapper.insert(dailyTrainCarriage);
         } else {
         dailyTrainCarriage.setUpdateTime(now);
             dailyTrainCarriageMapper.updateByPrimaryKey(dailyTrainCarriage);
         }
     }
+    private DailyTrainCarriage selectByUnique(String trainCode, Integer index){
+        DailyTrainCarriageExample dailyTrainCarriageExample = new DailyTrainCarriageExample();
+        dailyTrainCarriageExample.createCriteria()
+                .andTrainCodeEqualTo(trainCode)
+                .andIndexEqualTo(index);
+        List<DailyTrainCarriage> list = dailyTrainCarriageMapper.selectByExample(dailyTrainCarriageExample);
+        if(CollUtil.isNotEmpty(list)){
+            return list.get(0);
+        }else{
+            return null;
+        }
+    }
 
     public PageResp<DailyTrainCarriageQueryResp> queryList(DailyTrainCarriageQueryReq req) {
         DailyTrainCarriageExample dailyTrainCarriageExample = new DailyTrainCarriageExample();
-        dailyTrainCarriageExample.setOrderByClause("id desc");
+//        dailyTrainCarriageExample.setOrderByClause("id desc");
+        dailyTrainCarriageExample.setOrderByClause("date desc,train_code asc");
         DailyTrainCarriageExample.Criteria criteria = dailyTrainCarriageExample.createCriteria();
-
+        if(ObjectUtil.isNotNull(req.getDate())){
+            criteria.andDateEqualTo(req.getDate());
+        }
+        if(ObjectUtil.isNotEmpty(req.getCode())){
+            criteria.andTrainCodeEqualTo(req.getCode());
+        }
         LOG.info("查询页码：{}", req.getPage());
         LOG.info("每页条数：{}", req.getSize());
         PageHelper.startPage(req.getPage(), req.getSize());

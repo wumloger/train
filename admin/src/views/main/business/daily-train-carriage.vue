@@ -1,7 +1,9 @@
 <template>
     <p>
         <a-space>
-            <a-button type="primary" @click="handleQuery()">刷新</a-button>
+            <a-date-picker v-model:value="params.date" valueFormat="YYYY-MM-DD" placeholder="选择日期"></a-date-picker>
+            <TrainSelectView v-model="params.code"></TrainSelectView>
+            <a-button type="primary" @click="handleQuery()">查找</a-button>
                             <a-button type="primary" @click="onAdd">新增</a-button>
         </a-space>
     </p>
@@ -39,7 +41,9 @@
                                                    placeholder="请选择日期"/>
                         </a-form-item>
                         <a-form-item label="车次编号">
-                                <a-input v-model:value="dailyTrainCarriage.trainCode"/>
+                                <!-- <a-input v-model:value="dailyTrainCarriage.trainCode"/>
+                                 -->
+                                 <TrainSelectView v-model="dailyTrainCarriage.trainCode"></TrainSelectView>
                         </a-form-item>
                         <a-form-item label="厢序">
                                 <a-input v-model:value="dailyTrainCarriage.index"/>
@@ -52,24 +56,30 @@
                                     </a-select-option>
                                 </a-select>
                         </a-form-item>
-                        <a-form-item label="座位数">
+                        <!-- <a-form-item label="座位数">
                                 <a-input v-model:value="dailyTrainCarriage.seatCount"/>
-                        </a-form-item>
+                        </a-form-item> -->
                         <a-form-item label="排数">
                                 <a-input v-model:value="dailyTrainCarriage.rowCount"/>
                         </a-form-item>
-                        <a-form-item label="列数">
+                        <!-- <a-form-item label="列数">
                                 <a-input v-model:value="dailyTrainCarriage.colCount"/>
-                        </a-form-item>
+                        </a-form-item> -->
             </a-form>
         </a-modal>
 </template>
 
 <script setup>
     import {ref, onMounted} from 'vue';
-    import {notification} from "ant-design-vue";
+import { notification } from "ant-design-vue";
+    import TrainSelectView from '@/components/train-select.vue';
     import axios from "axios";
 
+    
+let params = ref({
+    code: null,
+    date: null
+})
     const SEAT_TYPE_ARRAY = window.SEAT_TYPE_ARRAY;
     const visible = ref(false);
     let dailyTrainCarriage = ref({
@@ -186,7 +196,9 @@
         axios.get("/business/admin/daily-train-carriage/query-list", {
             params: {
                 page: param.page,
-                size: param.size
+                size: param.size,
+                code: params.value.code,
+                date: params.value.date
             }
         }).then((response) => {
             loading.value = false;
