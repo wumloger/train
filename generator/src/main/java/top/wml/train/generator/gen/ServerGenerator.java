@@ -20,7 +20,7 @@ public class ServerGenerator {
     static String servicePath = "[module]/src/main/java/top/wml/train/[module]/service/";
     static String serverPath = "[module]/src/main/java/top/wml/train/[module]/";
 
-    static String vuePath = "admin/src/views/main/";
+    static String vuePath = "admin/src/views/main/business/";
     static boolean readOnly = false;
     static String pomPath = "generator/pom.xml";
 

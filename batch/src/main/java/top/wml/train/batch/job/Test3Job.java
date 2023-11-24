@@ -5,11 +5,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-/**
- * @author mqxu
- * @date 2023/11/22
- * @description Test3Job
- **/
+
 @DisallowConcurrentExecution
 public class Test3Job implements Job {
 
