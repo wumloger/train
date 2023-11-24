@@ -45,7 +45,7 @@ public class DailyTrainService {
     public PageResp<DailyTrainQueryResp> queryList(DailyTrainQueryReq req) {
         DailyTrainExample dailyTrainExample = new DailyTrainExample();
         dailyTrainExample.setOrderByClause("date desc,code asc");
-        dailyTrainExample.setOrderByClause("id desc");
+//        dailyTrainExample.setOrderByClause("id desc");
         DailyTrainExample.Criteria criteria = dailyTrainExample.createCriteria();
         if(ObjectUtil.isNotNull(req.getDate())){
             criteria.andDateEqualTo(req.getDate());
