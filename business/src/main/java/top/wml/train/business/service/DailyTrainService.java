@@ -3,6 +3,7 @@ package top.wml.train.business.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -34,6 +35,9 @@ public class DailyTrainService {
 
     @Resource
     private TrainService trainService;
+
+    @Resource
+    private DailyTrainStationService dailyTrainStationService;
 
     public void save(DailyTrainSaveReq req) {
         DateTime now = DateTime.now();
@@ -108,5 +112,8 @@ public class DailyTrainService {
         dailyTrain.setCreateTime(now);
         dailyTrain.setUpdateTime(now);
         dailyTrainMapper.insert(dailyTrain);
+
+        dailyTrainStationService.genDaily(date,train.getCode());
+        LOG.info("生成日期【{}】车次【{}】的信息结束", DateUtil.formatDate(date),train.getCode());
     }
 }
