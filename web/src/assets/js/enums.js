@@ -35,20 +35,20 @@ const PASSENGER_TYPE_ARRAY = [
 ];
 window.PASSENGER_TYPE_ARRAY = PASSENGER_TYPE_ARRAY;
 
-TRAIN_TYPE_ARRAY = [
+const TRAIN_TYPE_ARRAY = [
   { code: "G", desc: "高铁", priceRate: "1.2" },
   { code: "D", desc: "动车", priceRate: "1" },
   { code: "K", desc: "快速", priceRate: "0.8" },
 ];
-
-SEAT_TYPE_ARRAY = [
+window.TRAIN_TYPE_ARRAY = TRAIN_TYPE_ARRAY;
+const SEAT_TYPE_ARRAY = [
   { code: "1", desc: "一等座", price: "0.4" },
   { code: "2", desc: "二等座", price: "0.3" },
   { code: "3", desc: "软卧", price: "0.6" },
   { code: "4", desc: "硬卧", price: "0.5" },
 ];
-
-SEAT_COL_ARRAY = [
+window.SEAT_TYPE_ARRAY = SEAT_TYPE_ARRAY;
+const SEAT_COL_ARRAY = [
   { code: "A", desc: "A", type: "1" },
   { code: "C", desc: "C", type: "1" },
   { code: "D", desc: "D", type: "1" },
@@ -59,3 +59,4 @@ SEAT_COL_ARRAY = [
   { code: "D", desc: "D", type: "2" },
   { code: "F", desc: "F", type: "2" },
 ];
+window.SEAT_COL_ARRAY = SEAT_COL_ARRAY;
