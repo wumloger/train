@@ -1,3 +1,5 @@
+SESSION_ORDER = "SESSION_ORDER";
+SESSION_TICKET_PARAMS = "SESSION_TICKET_PARAMS";
 // eslint-disable-next-line no-undef
 SessionStorage = {
   get: function (key) {

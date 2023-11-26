@@ -25,9 +25,9 @@
         </a-space>
       </template>
       <template v-else-if="column.dataIndex === 'type'">
-        <span v-for="item in PASSENGER_TYPE_ARRAY" :key="item.key">
-          <span v-if="item.key === record.type">
-            {{ item.value }}
+        <span v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code">
+          <span v-if="item.code === record.type">
+            {{ item.desc }}
 
           </span>
         </span>
@@ -57,9 +57,9 @@
         <a-select v-model:value="passenger.type">
           <a-select-option
           v-for="item in PASSENGER_TYPE_ARRAY"
-          :key="item.key"
-          :value="item.key"
-          >{{ item.value }}</a-select-option>
+          :key="item.code"
+          :value="item.code"
+          >{{ item.desc }}</a-select-option>
         </a-select>
       </a-form-item>
     </a-form>
@@ -70,8 +70,8 @@
 import { ref, onMounted } from 'vue';
 import { notification } from 'ant-design-vue';
 import axios from 'axios';
-import { PASSENGER_TYPE_ARRAY } from '@/assets/js/enums';
-
+// import { PASSENGER_TYPE_ARRAY } from '@/assets/js/enums';
+const PASSENGER_TYPE_ARRAY = window.PASSENGER_TYPE_ARRAY;
 
 
 const visible = ref(false);
