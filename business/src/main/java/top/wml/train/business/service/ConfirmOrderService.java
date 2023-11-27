@@ -189,7 +189,7 @@ public class ConfirmOrderService {
 
         LOG.info("最终选座：{}", finalSeatList);
 
-        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList,tickets);
+        afterConfirmOrderService.afterDoConfirm(dailyTrainTicket,finalSeatList,tickets,confirmOrder);
         // 选座
 
         // 一个车箱一个车箱的获取座位数据
