@@ -37,14 +37,14 @@ public class TrainSeatService {
 
     public void save(TrainSeatSaveReq req) {
         DateTime now = DateTime.now();
-    TrainSeat trainSeat = BeanUtil.copyProperties(req, TrainSeat.class);
+        TrainSeat trainSeat = BeanUtil.copyProperties(req, TrainSeat.class);
         if (ObjectUtil.isNull(trainSeat.getId())) {
-        trainSeat.setId(SnowUtil.getSnowflakeNextId());
-        trainSeat.setCreateTime(now);
-        trainSeat.setUpdateTime(now);
+            trainSeat.setId(SnowUtil.getSnowflakeNextId());
+            trainSeat.setCreateTime(now);
+            trainSeat.setUpdateTime(now);
             trainSeatMapper.insert(trainSeat);
         } else {
-        trainSeat.setUpdateTime(now);
+            trainSeat.setUpdateTime(now);
             trainSeatMapper.updateByPrimaryKey(trainSeat);
         }
     }
@@ -54,7 +54,7 @@ public class TrainSeatService {
         trainSeatExample.setOrderByClause("train_code asc,carriage_index asc, carriage_seat_index asc");
         TrainSeatExample.Criteria criteria = trainSeatExample.createCriteria();
 
-        if(ObjectUtil.isNotEmpty(req.getTrainCode())){
+        if (ObjectUtil.isNotEmpty(req.getTrainCode())) {
             criteria.andTrainCodeEqualTo(req.getTrainCode());
         }
 
@@ -80,7 +80,7 @@ public class TrainSeatService {
     }
 
     @Transactional
-    public void genTrainSeat(String trainCode){
+    public void genTrainSeat(String trainCode) {
         DateTime now = DateTime.now();
         // 清空当前车次下的所有座位记录
         TrainSeatExample trainSeatExample = new TrainSeatExample();
@@ -103,7 +103,7 @@ public class TrainSeatService {
             LOG.info("根据车厢座位类型，筛选出所有的列：{}", columnList);
 
             // 循环行数
-            for (int row = 1; row<=rowCount; row++) {
+            for (int row = 1; row <= rowCount; row++) {
                 // 循环列数
                 for (SeatColEnum seatColEnum : columnList) {
                     // 构造座位数据并保存数据库
@@ -125,6 +125,7 @@ public class TrainSeatService {
 
     /**
      * 按车次编号查询所有座位
+     *
      * @param trainCode
      * @return
      */
