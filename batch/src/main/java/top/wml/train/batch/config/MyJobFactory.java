@@ -7,7 +7,7 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * @author mqxu
+ * @author wml
  * @date 2023/11/22
  * @description MyJobFactory
  **/
