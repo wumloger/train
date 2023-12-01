@@ -1,4 +1,6 @@
 // eslint-disable-next-line no-undef
+SESSION_ALL_TRAIN = "SESSION_ALL_TRAIN";
+
 SessionStorage = {
   get: function (key) {
     var v = sessionStorage.getItem(key);

@@ -26,4 +26,5 @@ public class DailyTrainTicketController {
         PageResp<DailyTrainTicketQueryResp> list = dailyTrainTicketService.queryList(req);
         return new CommonResp<>(list);
     }
+
 }
