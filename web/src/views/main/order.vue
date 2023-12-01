@@ -11,97 +11,110 @@
     <div class="order-train-ticket">
       <span v-for="item in seatTypes" :key="item.type">
         <span>{{ item.desc }}</span>：
-        <span class="order-train-ticket-main">￥{{ item.price }}</span> &nbsp;
-        <span class="order-train-ticket-main">{{ item.count }}</span>张票 &nbsp;
+        <span class="order-train-ticket-main">{{ item.price }}￥</span>&nbsp;
+        <span class="order-train-ticket-main">{{ item.count }}</span>&nbsp;张票&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </span>
     </div>
   </div>
   <a-divider></a-divider>
-  <b>勾选要购票的乘客</b>
+  <b>勾选要购票的乘客：</b>&nbsp;
   <a-checkbox-group v-model:value="passengerChecks" :options="passengerOptions"/>
-    <div class="order-tickets">
-        <a-row class="order-tickets-header">
-            <a-col :span="2">乘客</a-col>
-            <a-col :span="6">身份证</a-col>
-            <a-col :span="4">票种</a-col>
-            <a-col :span="4">座位类型</a-col>
-        </a-row>
-        <a-row class="order-tickets-row" v-for="ticket in  tickets" :key="ticket.passengerId">
-          <a-col :span="2">{{ ticket.passengerName }}</a-col>
-          <a-col :span="6">{{ ticket.passengerIdCard }}</a-col>
-          <a-col :span="4">
-            <a-select v-mode:value="ticket.passengerTypes" style="width:100%;">
-              <a-select-option v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code" :value="item.code">
-            {{ item.desc }}</a-select-option>
-            </a-select>
-          </a-col>
-          <a-col :span="4">
-            <a-select v-model:value="ticket.seatTypeCode" style="width:100%">
-              <a-select-option :key="item.code" :value="item.code" v-for="item in seatTypes">
-                {{ item.desc }}
-              </a-select-option>
-            </a-select>
-            </a-col>
-        </a-row>
-    </div>
-    <div v-if="tickets.length > 0">
-        <a-button type="primary" size="large" @click="finishCheckPassenger">提价订单</a-button>
-    </div>
-    <a-modal v-model:visible="visible" title="请核对以下信息" style="top:50px; width: 800px;" ok-text="确认" cancel-text="取消" @ok="handleOk">
-        <div class="order-tickets">
-            <a-row class="order-tickets-header" v-if="tickets.length > 0">
-                <a-col :span="3">乘客</a-col>
-                <a-col :span="15">省份证</a-col>
-                <a-col :span="3">票种</a-col>
-                <a-col :span="3">座位类型</a-col>
-            </a-row>
-            <a-row class="order-tickets-row" v-for="ticket in  tickets" :key="ticket.passengerId">
-                <a-col :span="3">{{ ticket.passengerName }}</a-col>
-                <a-col :span="15">{{ ticket.passengeIdCard }}</a-col>
-                <a-col :span="3">
-                    <span v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code">
-                        <span v-if="item.code === ticket.passengerType">{{ item.desc }}</span>
-                    </span>
-                </a-col>
-                <a-col :span="3">
-                    <sapn v-for="item in seatTypes" :key="item.code">
-                        <span v-if="item.code === ticket.seatTypeCode">
-                            {{ item.desc }}
-                        </span>
-                    </sapn>
-                </a-col>
-            </a-row>
-            <br>
-            选座对象chooseSeatType：{{ chooseSeatObj }}
-            <br>
-            <div v-if="chooseSeatType === 0" style="color:red;">
-                您购买的车票不支持选座
-                <div>
-                    12306规则：只有全是一等座或全是二等座才支持选座
-                </div>
-                <div>12306规则：余票小于一定数量时，不允许选座(20)</div>
-            </div>
-            <div v-else style="text-align:center;">
-                <a-switch class="choose-seat-item" v-for="item in SEAT_COL_ARRAY" :key="item.code"
-                v-model:checked="chooseSeatObj[item.code + '1']" :checked-children="item.desc"
-                :un-checked-children="item.desc">
-                <div v-if="tickets.length > 1">
-                    <a-switch class="choose-seat-item" v-for="item in SEAT_COL_ARRAY" :key="item.code"
-                    v-model:checked="chooseSeatObj[item.code + '2']" :checked-children="item.desc"
-                    :un-checked-children="item.desc">
-                    ></a-switch>
-                    
-                </div>
-                
-            </a-switch>
-            <div style="color:#999999">提示：您可以选择{{ tickets.length }} 个座位</div>
-            </div>
 
+  <div class="order-tickets">
+    <a-row class="order-tickets-header" v-if="tickets.length > 0">
+      <a-col :span="2">乘客</a-col>
+      <a-col :span="6">身份证</a-col>
+      <a-col :span="4">票种</a-col>
+      <a-col :span="4">座位类型</a-col>
+    </a-row>
+    <a-row class="order-tickets-row" v-for="ticket in tickets" :key="ticket.passengerId">
+      <a-col :span="2">{{ ticket.passengerName }}</a-col>
+      <a-col :span="6">{{ ticket.passengerIdCard }}</a-col>
+      <a-col :span="4">
+        <a-select v-model:value="ticket.passengerType" style="width: 100%">
+          <a-select-option v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code" :value="item.code">
+            {{ item.desc }}
+          </a-select-option>
+        </a-select>
+      </a-col>
+      <a-col :span="4">
+        <a-select v-model:value="ticket.seatTypeCode" style="width: 100%">
+          <a-select-option v-for="item in seatTypes" :key="item.code" :value="item.code">
+            {{ item.desc }}
+          </a-select-option>
+        </a-select>
+      </a-col>
+    </a-row>
+  </div>
+  <div v-if="tickets.length > 0">
+    <a-button type="primary" size="large" @click="finishCheckPassenger">提交订单</a-button>
+  </div>
+
+  <a-modal v-model:visible="visible" title="请核对以下信息"
+           style="top: 50px; width: 800px"
+           ok-text="确认" cancel-text="取消"
+           @ok="showImageCodeModal">
+    <div class="order-tickets">
+      <a-row class="order-tickets-header" v-if="tickets.length > 0">
+        <a-col :span="3">乘客</a-col>
+        <a-col :span="15">身份证</a-col>
+        <a-col :span="3">票种</a-col>
+        <a-col :span="3">座位类型</a-col>
+      </a-row>
+      <a-row class="order-tickets-row" v-for="ticket in tickets" :key="ticket.passengerId">
+        <a-col :span="3">{{ ticket.passengerName }}</a-col>
+        <a-col :span="15">{{ ticket.passengerIdCard }}</a-col>
+        <a-col :span="3">
+          <span v-for="item in PASSENGER_TYPE_ARRAY" :key="item.code">
+            <span v-if="item.code === ticket.passengerType">
+              {{ item.desc }}
+            </span>
+          </span>
+        </a-col>
+        <a-col :span="3">
+          <span v-for="item in seatTypes" :key="item.code">
+            <span v-if="item.code === ticket.seatTypeCode">
+              {{ item.desc }}
+            </span>
+          </span>
+        </a-col>
+      </a-row>
+      <br/>
+      <div v-if="chooseSeatType === 0" style="color: red;">
+        您购买的车票不支持选座
+        <div>12306规则：只有全部是一等座或全部是二等座才支持选座</div>
+        <div>12306规则：余票小于一定数量时，不允许选座（本项目以20为例）</div>
+      </div>
+      <div v-else style="text-align: center">
+        <a-switch class="choose-seat-item" v-for="item in SEAT_COL_ARRAY" :key="item.code"
+                  v-model:checked="chooseSeatObj[item.code + '1']" :checked-children="item.desc"
+                  :un-checked-children="item.desc"/>
+        <div v-if="tickets.length > 1">
+          <a-switch class="choose-seat-item" v-for="item in SEAT_COL_ARRAY" :key="item.code"
+                    v-model:checked="chooseSeatObj[item.code + '2']" :checked-children="item.desc"
+                    :un-checked-children="item.desc"/>
         </div>
-        <br>
-        最终购票：{{tickets}}
-        最终选座：{{chooseSeatObj}}
-    </a-modal>
+        <div style="color: #999999">提示：您可以选择{{ tickets.length }}个座位</div>
+      </div>
+      <!--      <br/>-->
+      <!--      最终购票：{{ tickets }}-->
+      <!--      最终选座：{{ chooseSeatObj }}-->
+    </div>
+  </a-modal>
+
+  <!-- 验证码 -->
+  <a-modal v-model:visible="imageCodeModalVisible" :title="null" :footer="null" :closable="false"
+           style="top: 50px; width: 400px">
+    <p style="text-align: center; font-weight: bold; font-size: 18px">使用验证码削弱瞬时高峰</p>
+    <p>
+      <a-input v-model:value="imageCode" placeholder="图片验证码">
+        <template #suffix>
+          <img v-show="!!imageCodeSrc" :src="imageCodeSrc" alt="验证码" v-on:click="loadImageCode()"/>
+        </template>
+      </a-input>
+    </p>
+    <a-button type="danger" block @click="handleOk">输入验证码后开始购票</a-button>
+  </a-modal>
 </template>
 
 
@@ -110,6 +123,24 @@ import { ref, onMounted ,watch,computed} from 'vue';
 import axios from "axios";
 import { notification } from "ant-design-vue";
 
+
+/* ------------------- 验证码 --------------------- */
+const imageCodeModalVisible = ref();
+const imageCodeToken = ref();
+const imageCodeSrc = ref();
+const imageCode = ref();
+/**
+ * 加载图形验证码
+ */
+const loadImageCode = () => {
+    imageCodeToken.value = Tool.uuid(8);
+    imageCodeSrc.value = process.env.VUE_APP_SERVER + '/business/kaptcha/image-code/' + imageCodeToken.value;
+};
+
+const showImageCodeModal = () => {
+    loadImageCode();
+    imageCodeModalVisible.value = true;
+};
 const passengers = ref([]);
 const passengerOptions = ref([]);
 const passengerChecks = ref([]);
@@ -147,7 +178,9 @@ const handleOk = () => {
         trainCode: dailyTrainTicket.trainCode,
         start: dailyTrainTicket.start,
         end: dailyTrainTicket.end,
-        tickets: tickets.value
+        tickets: tickets.value,
+        imageCodeToken: imageCodeToken.value,
+        imageCode:imageCode.value
     }).then((res) => {
         let data = res.data;
         if (data.success) {
