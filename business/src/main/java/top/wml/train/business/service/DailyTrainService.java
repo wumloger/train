@@ -32,6 +32,8 @@ public class DailyTrainService {
 
     @Resource
     private DailyTrainMapper dailyTrainMapper;
+    @Resource
+    private SkTokenService skTokenService;
 
     @Resource
     private TrainService trainService;
@@ -136,6 +138,8 @@ public class DailyTrainService {
 
         dailyTrainTicketService.genDaily(dailyTrain,date,train.getCode());
         LOG.info("生成日期【{}】车次【{}】的信息结束",DateUtil.formatDate(date),train.getCode());
+
+        skTokenService.genDaily(date,train.getCode());
 
     }
 }
