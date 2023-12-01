@@ -2,7 +2,7 @@
   <p>
     <a-space>
       <train-select-view v-model="params.trainCode" width="200px"/>
-      <a-date-picker v-model:value="params.date" valueFormat="YYYY-MM-DD" placeholder="请选择日期"/>
+      <a-date-picker v-model:value="params.date" valueFormat="YYYY-MM-DD" placeholder="请选择日期" :disabled-date="disabledDate"/>
       <station-select-view v-model="params.start" width="200px"/>
       <station-select-view v-model="params.end" width="200px"/>
       <a-button type="primary" @click="handleQuery()">查找</a-button>
@@ -16,7 +16,20 @@
            :loading="loading">
     <template #bodyCell="{ column, record }">
       <template v-if="column.dataIndex === 'operation'">
-        <a-button type="primary" @click="toOrder(record)">预订</a-button>
+        <a-button type="primary" @click="toOrder(record)" :disabled="isExpire(record)">{{ isExpire(record) ? "过期" : "预定"}}</a-button>
+              <router-link :to="{
+                path: '/seat',
+                query: {
+                  date: record.date,
+                  trainCode: record.trainCode,
+                  start: record.start,
+                  startIndex: record.startIndex,
+                  end: record.end,
+                  endIndex: record.endIndex
+                }
+              }">
+        <a-button type="primary">座位销售图</a-button>
+      </router-link>
         <a-button type="primary" @click="showStation(record)">途经车站</a-button>
       </template>
       <template v-else-if="column.dataIndex === 'station'">
@@ -107,6 +120,22 @@ import StationSelectView from "@/components/station-select";
 import router from "@/router";
 import dayjs from "dayjs";
 
+// 判断是否过期
+const isExpire = (record) => {
+  // 标准时间：2000/01/01 00:00:00
+  let startDateTimeString = record.date.replace(/-/g, "/") + " " + record.startTime;
+  let startDateTime = new Date(startDateTimeString);
+
+  //当前时间
+  let now = new Date();
+
+  console.log(startDateTime)
+  return now.valueOf() >= startDateTime.valueOf();
+};
+// 不能选择今天以前及两周以后的日期
+const disabledDate = current => {
+  return current && (current <= dayjs().add(-1, 'day') || current > dayjs().add(14, 'day'));
+};
 const toOrder = (record) => {
   dailyTrainTicket.value = Tool.copy(record);
   SessionStorage.set(SESSION_ORDER, dailyTrainTicket.value);

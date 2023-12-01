@@ -19,6 +19,12 @@
         <a-menu-item key="/ticket">
             <router-link to="/ticket"><user-outlined/>余票查询</router-link>
           </a-menu-item>
+    <a-menu-item key="/seat">
+        <router-link to="/seat">
+          <usergroup-add-outlined/>
+            座位销售图
+        </router-link>
+      </a-menu-item>
           
         </a-menu>
     </a-layout-header>
